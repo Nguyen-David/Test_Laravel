@@ -22,16 +22,16 @@ class AboutController extends Controller
         if(view()->exists('default.about')){
 
             //$articles = DB::select("SELECT * from `articles` WHERE id = :id",['id' => 10]);
-            DB::insert("INSERT INTO `articles` (`name`,`text`,`img`) VALUES (?, ?, ?)",['test 1','TEXT','pic8.jpg']);
+            //DB::insert("INSERT INTO `articles` (`name`,`text`,`img`) VALUES (?, ?, ?)",['test 1','TEXT','pic8.jpg']);
 
             //$result = DB::connection()->getPdo()->lastInsertId();
             //$result = DB::update("UPDATE `articles` SET `name`  = ? WHERE `id` = ?",['test3',10]);
             //$result = DB::delete('DELETE from `articles` WHERE `id` = ?', [8]);
 
             //DB::statement('DROP table `articles`');
-            $articles = DB::select("SELECT * from `articles`");
+            //$articles = DB::select("SELECT * from `articles`");
             //dump($result);
-            dump($articles);
+            //dump($articles);
 
             //$view = view('default.about')->withTitle('Hello world')->render();
 
@@ -42,7 +42,9 @@ class AboutController extends Controller
 //            return response()->json(['name' => 'Hello','name1' => 'Hello1']);
 //            return response()->view('default.about',['title' => 'Hello wordl']);
 //            return response()->download('robots.txt', 'mytext.txt');
-            return view('default.about')->withTitle('Hello world');
+
+            $page = DB::select("SELECT `name`,`text` FROM `pages` WHERE `alias` = :alias",['alias' => 'about']);
+            return view('default.about')->withPage($page[0])->withTitle('About our company');
 
 //            return redirect('/');
 //            return redirect('/articles')->with('param', 'Hello');
